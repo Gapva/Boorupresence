@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Boorupresence"
+run/main_scene="res://manager.tscn"
+config/features=PackedStringArray("4.1", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://assets/img/full.png"
+config/windows_native_icon="res://assets/img/favi.ico"
+boot_splash/minimum_display_time=4000
+config/version_name="nov10-rabbit"
+
+[autoload]
+
+DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
+MaterialIconsDB="*res://addons/material-design-icons/icons/icons.gd"
+BRPC="*res://scripts/independent.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg", "res://addons/material-design-icons/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
