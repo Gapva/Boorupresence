@@ -2,6 +2,7 @@
 
 # Boorupresence
 Rich presence for image board ("booru") websites
+
 Currently, it is only Windows-supported, but that will probably change over-time.
 
 # Installation
