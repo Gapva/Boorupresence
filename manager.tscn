@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://7qdtnvrkuy0s"]
+[gd_scene load_steps=47 format=3 uid="uid://7qdtnvrkuy0s"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_gs6oj"]
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_shdof"]
@@ -72,6 +72,26 @@ expand_margin_bottom = 4.0
 [sub_resource type="LabelSettings" id="LabelSettings_2gpju"]
 font_size = 26
 
+[sub_resource type="Animation" id="Animation_kvpdh"]
+resource_name = "push"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(439.5, 484), Vector2(439.5, 476)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yorhg"]
+_data = {
+"push": SubResource("Animation_kvpdh")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5hkc7"]
 bg_color = Color(1, 1, 1, 0)
 
@@ -92,9 +112,64 @@ bg_color = Color(1, 1, 1, 0)
 [sub_resource type="LabelSettings" id="LabelSettings_nd8t2"]
 font_size = 24
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6kyqe"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srp3o"]
+
+[sub_resource type="Animation" id="Animation_shwty"]
+resource_name = "roll"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tb6sy"]
+_data = {
+"roll": SubResource("Animation_shwty")
+}
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vf626"]
 color = Color(1, 1, 1, 0.196078)
 thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrfwc"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2am6"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xexh8"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_cvb4l"]
+resource_name = "back"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [Vector2(48, -3.5), Vector2(56, -3.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4qvib"]
+_data = {
+"back": SubResource("Animation_cvb4l")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87qnt"]
 bg_color = Color(0.356863, 0.403922, 0.6, 0.392157)
@@ -248,6 +323,7 @@ anchor_bottom = 1.0
 offset_left = -72.5
 offset_top = -44.0
 offset_right = 72.5
+offset_bottom = -0.000610352
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -276,6 +352,12 @@ text = "Update"
 label_settings = SubResource("LabelSettings_2gpju")
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="anims" type="AnimationPlayer" parent="main/update"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_yorhg")
+}
 
 [node name="bgm" type="Button" parent="main"]
 custom_minimum_size = Vector2(40, 40)
@@ -349,23 +431,80 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
+[node name="go" type="Button" parent="main/vbox/current"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 232.0
+offset_bottom = 32.0
+pivot_offset = Vector2(16, 16)
+theme_override_fonts/font = ExtResource("2_weqi6")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_6kyqe")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6kyqe")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6kyqe")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_6kyqe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_srp3o")
+text = "󰌧"
+script = ExtResource("3_1b01e")
+icon_name = "launch"
+icon_size = 32
+
+[node name="anims" type="AnimationPlayer" parent="main/vbox/current/go"]
+libraries = {
+"": SubResource("AnimationLibrary_tb6sy")
+}
+
 [node name="sep" type="HSeparator" parent="main/vbox"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_vf626")
 
 [node name="tags" type="Label" parent="main/vbox"]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "Tags"
 label_settings = SubResource("LabelSettings_nd8t2")
 
+[node name="clear" type="Button" parent="main/vbox/tags"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_right = -0.000640869
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_weqi6")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_6kyqe")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vrfwc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g2am6")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_xexh8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_srp3o")
+text = "󰁮"
+script = ExtResource("3_1b01e")
+icon_name = "backspace"
+icon_size = 32
+
+[node name="anims" type="AnimationPlayer" parent="main/vbox/tags/clear"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_4qvib")
+}
+
 [node name="taginput" type="LineEdit" parent="main/vbox"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(320, 32)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_87qnt")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4wawa")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_87qnt")
-placeholder_text = "Write your space-separated search tags here (e.g. \"1boy 1girl link zelda\")"
-max_length = 128
+placeholder_text = "Write a tag here - Press space to confirm"
+max_length = 32
 
 [node name="taglist" type="Label" parent="main/vbox"]
 custom_minimum_size = Vector2(0, 260)
@@ -435,5 +574,6 @@ bus = &"Sounds"
 
 [node name="deltagportion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_5gwjj")
+volume_db = 6.0
 pitch_scale = 0.5
 bus = &"Sounds"

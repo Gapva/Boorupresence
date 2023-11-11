@@ -1,11 +1,12 @@
 ea4bc82a6ad023ab7ee23ee620429895
 ::res://::1699592105
+default_bus_layout.tres::AudioBusLayout::5866068108908291256::1699654760::0::1::::<><>::
 default_env.tres::Environment::-1::1699637392::0::1::::<><>::
+export_presets.cfg::TextFile::-1::1699656648::0::1::::<><>::
 icon.png::CompressedTexture2D::5996456049942873532::1699637392::1699637394::1::::<><>::
 icon.svg::CompressedTexture2D::1818205818955223274::1699592138::1699592158::1::::<><>::
-manager.tscn::PackedScene::2279289837575509988::1699654914::0::1::::<><>::res://scripts/manager.gd<>res://scripts/interface.gd<>uid://cjln1sn1ihj85::::res://assets/fonts/quicksand/static/Quicksand-SemiBold.ttf<>uid://vyicmg0a1e7q::::res://addons/material-design-icons/fonts/material_design_icons.ttf<>res://addons/material-design-icons/nodes/MaterialButton.gd<>res://addons/material-design-icons/nodes/MaterialIcon.gd<>uid://2x4wmgq1lx6m::::res://assets/audio/bgm.mp3<>uid://dhfji3t1h8nu7::::res://assets/img/boorupresence.png
-README.md::TextFile::-1::1699637390::0::1::::<><>::
-default_bus_layout.tres::AudioBusLayout::5866068108908291256::1699654760::0::1::::<><>::
+manager.tscn::PackedScene::2279289837575509988::1699671448::0::1::::<><>::res://scripts/manager.gd<>res://scripts/interface.gd<>uid://cjln1sn1ihj85::::res://assets/fonts/quicksand/static/Quicksand-SemiBold.ttf<>uid://vyicmg0a1e7q::::res://addons/material-design-icons/fonts/material_design_icons.ttf<>res://addons/material-design-icons/nodes/MaterialButton.gd<>res://addons/material-design-icons/nodes/MaterialIcon.gd<>uid://2x4wmgq1lx6m::::res://assets/audio/bgm.mp3<>uid://dhfji3t1h8nu7::::res://assets/img/boorupresence.png<>uid://dajwub35hreko::::res://assets/audio/newtag.wav<>uid://ctk2hwpofbqs0::::res://assets/audio/updrpc.wav<>uid://cp3qjco7uusjh::::res://assets/audio/deltagportion.wav
+README.md::TextFile::-1::1699655946::0::1::::<><>::
 screenshot_export.png::CompressedTexture2D::8885913220356856609::1699637392::1699637394::1::::<><>::
 screenshot_if.png::CompressedTexture2D::1936561428738171938::1699637392::1699637394::1::::<><>::
 ::res://addons/::1699592267
@@ -70,5 +71,5 @@ boorupresence.png::CompressedTexture2D::7661468085799042164::1699591002::1699649
 full.png::CompressedTexture2D::6735840644045411204::1699499430::1699650084::1::::<><>::
 ::res://scripts/::1699640643
 independent.gd::GDScript::-1::1699652098::0::1::::<>Node<>::
-interface.gd::GDScript::-1::1699654278::0::1::::<>Panel<>::
+interface.gd::GDScript::-1::1699671432::0::1::::<>Panel<>::
 manager.gd::GDScript::-1::1699652114::0::1::::<>Control<>::
