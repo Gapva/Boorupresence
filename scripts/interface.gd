@@ -21,12 +21,28 @@ func _ready():
 	$vbox/taginput/limit.connect("value_changed", limupd)
 	
 	for iterbooru in BRPC.boorus:
-		$vbox/current.add_item(iterbooru.alias, iterbooru.id)
+		if iterbooru.safe:
+			$vbox/current.add_item(iterbooru.alias, iterbooru.id)
 	
 	await get_tree().create_timer(3).timeout
 	$"../anims".play("intro")
 	await get_tree().create_timer(2).timeout
 	$"../fade".hide()
+	
+	$"../age".connect("confirmed", ageconf)
+	$"../age".connect("canceled", agenotice)
+	$"../age".popup()
+	$"../age".popup_centered()
+	
+
+func ageconf():
+	$vbox/current.clear()
+	for iterbooru in BRPC.boorus:
+		$vbox/current.add_item(iterbooru.alias, iterbooru.id)
+
+func agenotice():
+	$"../warning".popup()
+	$"../warning".popup_centered()
 
 func bgmtog(togbool: bool):
 	if togbool:
@@ -45,10 +61,16 @@ func updallinfo():
 	BRPC.simg = BRPC.safetylisting[int(bool(booru.safe))]
 	BRPC.stxt = BRPC.safetyaliases[int(bool(booru.safe))]
 	$vbox/taglist.text = "\n".join(ptags)
-	print(tags)
+	print("Tags list updated to " + tags)
 
 func updbooru(sel: int):
 	booru = BRPC.boorus[sel]
+	if not booru.has("requrl"):
+		$vbox/taginput/bulk.hide()
+		$vbox/taginput/limit.hide()
+	else:
+		$vbox/taginput/bulk.show()
+		$vbox/taginput/limit.show()
 	updallinfo()
 
 func updtags(new: String):
@@ -75,7 +97,7 @@ func gotobooru():
 
 func bulkdl():
 	BRPC.updrpc()
-	if booru.has("requrl") and not tags == []:
+	if not tags == []:
 		$"../updrpc".play()
 		$vbox/taginput/bulk/anims.stop()
 		$vbox/taginput/bulk/anims.play("roll")

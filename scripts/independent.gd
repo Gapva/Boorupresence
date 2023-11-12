@@ -26,13 +26,13 @@ const boorus = [
 	},
 	{
 		"alias": "Danbooru",
-		"locator": "https://boorusphere-403.mhyl.repl.co/",
+		"locator": "https://danbooru.donmai.us/",
 		"safe": false,
 		"id": 1
 	},
 	{
 		"alias": "Gelbooru",
-		"locator": "https://boorusphere-403.mhyl.repl.co/",
+		"locator": "https://gelbooru.com/",
 		"safe": false,
 		"id": 2
 	},
@@ -45,13 +45,14 @@ const boorus = [
 	},
 	{
 		"alias": "Konachan (COM)",
-		"locator": "https://boorusphere-403.mhyl.repl.co/",
+		"locator": "https://konachan.com/",
+		"requrl": "https://konachan.com/post.xml?&tags={TAGS}",
 		"safe": false,
 		"id": 4
 	},
 	{
 		"alias": "Yandere",
-		"locator": "https://boorusphere-403.mhyl.repl.co/",
+		"locator": "https://yande.re/",
 		"safe": false,
 		"id": 5
 	},

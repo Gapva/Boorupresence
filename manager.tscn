@@ -634,3 +634,23 @@ stream = ExtResource("11_5gwjj")
 volume_db = 6.0
 pitch_scale = 0.5
 bus = &"Sounds"
+
+[node name="age" type="ConfirmationDialog" parent="."]
+title = "Age confirmation"
+initial_position = 2
+size = Vector2i(382, 100)
+ok_button_text = "Yes"
+dialog_text = "Are you above (or exactly) the age of eighteen?"
+cancel_button_text = "No"
+
+[node name="warning" type="AcceptDialog" parent="."]
+title = "Age Notice"
+initial_position = 2
+size = Vector2i(325, 192)
+ok_button_text = "Understood"
+dialog_text = "To unlock all features of Boorupresence,
+you must first verify that you are above
+the age of eighteen.
+
+If you want to change your response,
+restart Boorupresence."
