@@ -1,5 +1,8 @@
-AnimationPlayer
+SpinBox
 MaterialButton
+Panel
+ScrollContainer
+AnimationPlayer
 Label
 AudioStreamPlayer
 ColorRect
@@ -13,5 +16,4 @@ VBoxContainer
 OptionButton
 DiscordSDKTutorial
 MaterialIcon
-Panel
 CPUParticles2D

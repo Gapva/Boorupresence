@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://7qdtnvrkuy0s"]
+[gd_scene load_steps=50 format=3 uid="uid://7qdtnvrkuy0s"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_gs6oj"]
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_shdof"]
@@ -181,6 +181,22 @@ expand_margin_left = 8.0
 expand_margin_right = 8.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wawa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1cc"]
+bg_color = Color(0.760784, 0.6, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4arpp"]
+bg_color = Color(0.458824, 0.364706, 0.603922, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wdm5o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cv18u"]
 font_color = Color(1, 0.941176, 0.678431, 1)
@@ -436,6 +452,7 @@ layout_mode = 0
 offset_left = 200.0
 offset_right = 232.0
 offset_bottom = 32.0
+rotation = 6.28319
 pivot_offset = Vector2(16, 16)
 theme_override_fonts/font = ExtResource("2_weqi6")
 theme_override_font_sizes/font_size = 32
@@ -505,6 +522,46 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_4wawa")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_87qnt")
 placeholder_text = "Write a tag here - Press space to confirm"
 max_length = 32
+
+[node name="bulk" type="Button" parent="main/vbox/taginput"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 336.0
+offset_right = 368.0
+offset_bottom = 32.0
+pivot_offset = Vector2(16, 16)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_weqi6")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_oa1cc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4arpp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oa1cc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_oa1cc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wdm5o")
+text = "󰇚"
+clip_text = true
+icon_alignment = 1
+script = ExtResource("3_1b01e")
+icon_name = "download"
+icon_size = 28
+
+[node name="anims" type="AnimationPlayer" parent="main/vbox/taginput/bulk"]
+libraries = {
+"": SubResource("AnimationLibrary_tb6sy")
+}
+
+[node name="limit" type="SpinBox" parent="main/vbox/taginput"]
+custom_minimum_size = Vector2(272, 32)
+layout_mode = 0
+offset_left = 376.0
+offset_right = 648.0
+offset_bottom = 32.0
+min_value = 1.0
+value = 10.0
+update_on_text_changed = true
+prefix = "Bulk-cache the first"
+suffix = "result(s)"
+select_all_on_focus = true
 
 [node name="taglist" type="Label" parent="main/vbox"]
 custom_minimum_size = Vector2(0, 260)

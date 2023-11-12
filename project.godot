@@ -12,6 +12,8 @@ config_version=5
 
 config/name="Boorupresence"
 run/main_scene="res://manager.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Boorupresence"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -20,13 +22,19 @@ boot_splash/use_filter=false
 config/icon="res://assets/img/full.png"
 config/windows_native_icon="res://assets/img/favi.ico"
 boot_splash/minimum_display_time=4000
-config/version_name="nov11-rabbit"
+config/version_name="nov12-rabbit"
 
 [autoload]
 
 DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
 MaterialIconsDB="*res://addons/material-design-icons/icons/icons.gd"
 BRPC="*res://scripts/independent.gd"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/booru.log"
+file_logging/max_log_files=1
 
 [editor_plugins]
 
