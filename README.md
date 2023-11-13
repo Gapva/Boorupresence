@@ -8,3 +8,6 @@ Currently, only Windows is supported, but that will probably change over time.
 # Installation
 Download Boorupresence by clicking [here](https://github.com/Gapva/Boorupresence/releases/latest).
 Alternatively, if you want to find an older version or see a list of every release, you can click [here](https://github.com/Gapva/Boorupresence/releases/) instead.
+
+# Usage/Preview
+Watch the [teaser video](https://youtu.be/lBGFNNV9m0Q) for more information on what to expect from Boorupresence.
