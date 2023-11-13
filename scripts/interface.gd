@@ -61,7 +61,7 @@ func updallinfo():
 	BRPC.simg = BRPC.safetylisting[int(bool(booru.safe))]
 	BRPC.stxt = BRPC.safetyaliases[int(bool(booru.safe))]
 	$vbox/taglist.text = "\n".join(ptags)
-	print("Tags list updated to " + tags)
+	print("Tags list updated to " + str(tags))
 
 func updbooru(sel: int):
 	booru = BRPC.boorus[sel]

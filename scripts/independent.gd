@@ -25,34 +25,36 @@ const boorus = [
 		"id": 0
 	},
 	{
-		"alias": "Danbooru",
-		"locator": "https://danbooru.donmai.us/",
-		"safe": false,
-		"id": 1
-	},
-	{
 		"alias": "Gelbooru",
 		"locator": "https://gelbooru.com/",
+		"requrl": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=0&tags={TAGS}",
 		"safe": false,
-		"id": 2
+		"id": 1
 	},
 	{
 		"alias": "Konachan (NET)",
 		"locator": "https://konachan.net/",
 		"requrl": "https://konachan.net/post.xml?&tags={TAGS}",
 		"safe": true,
-		"id": 3
+		"id": 2
 	},
 	{
 		"alias": "Konachan (COM)",
 		"locator": "https://konachan.com/",
 		"requrl": "https://konachan.com/post.xml?&tags={TAGS}",
 		"safe": false,
-		"id": 4
+		"id": 3
 	},
 	{
 		"alias": "Yandere",
 		"locator": "https://yande.re/",
+		"requrl": "https://yande.re/post.xml?&tags={TAGS}",
+		"safe": false,
+		"id": 4
+	},
+	{
+		"alias": "Danbooru",
+		"locator": "https://danbooru.donmai.us/",
 		"safe": false,
 		"id": 5
 	},
@@ -111,8 +113,21 @@ func parseresp(body) -> Array:
 		while xml.read() == OK:
 			if xml.get_node_type() == XMLParser.NODE_ELEMENT:
 				if xml.get_node_name() == "post":
-					var url: String = xml.get_named_attribute_value_safe("file_url")
-					images.append(url)
+					var file_url: String = xml.get_named_attribute_value_safe("file_url")
+					if file_url.is_empty():
+						var inside_post = true
+						while inside_post and xml.read() == OK:
+							if xml.get_node_type() == XMLParser.NODE_ELEMENT:
+								if xml.get_node_name() == "file_url":
+									xml.read()
+									if xml.get_node_type() == XMLParser.NODE_TEXT:
+										file_url = xml.get_node_data().strip_edges()
+										images.append(file_url)
+										break
+							elif xml.get_node_type() == XMLParser.NODE_ELEMENT_END and xml.get_node_name() == "post":
+								inside_post = false
+					else:
+						images.append(file_url)
 					if images.size() >= results:
 						break
 	return images

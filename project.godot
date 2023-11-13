@@ -36,6 +36,10 @@ file_logging/enable_file_logging=true
 file_logging/log_path="user://logs/booru.log"
 file_logging/max_log_files=1
 
+[display]
+
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg", "res://addons/material-design-icons/plugin.cfg")
