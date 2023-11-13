@@ -75,7 +75,7 @@ func updbooru(sel: int):
 
 func updtags(new: String):
 	if new.right(1) == " " and not tags.has(new.to_lower()):
-		tags.append(new.replace(" ", ""))
+		tags.append(new.to_lower().replace(" ", ""))
 		ptags.append(new.capitalize())
 		$vbox/taginput.text = ""
 		$"../newtag".play()
