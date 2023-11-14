@@ -1,11 +1,11 @@
+AnimationPlayer
+Label
 AcceptDialog
 ConfirmationDialog
 SpinBox
 MaterialButton
 Panel
 ScrollContainer
-AnimationPlayer
-Label
 AudioStreamPlayer
 ColorRect
 AnimationTree

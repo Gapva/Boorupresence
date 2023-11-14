@@ -11,6 +11,7 @@ func _ready():
 	$"../fade".color = Color(0, 0, 0, 1)
 	
 	$"../ver".text = ProjectSettings.get_setting("application/config/version_name")
+	$vbox/current/go/tip.text = booru.locator
 	
 	$bgm.connect("toggled", bgmtog)
 	$update.connect("pressed", updrpc)
@@ -18,6 +19,8 @@ func _ready():
 	$vbox/taginput.connect("text_changed", updtags)
 	$vbox/tags/clear.connect("pressed", clrtags)
 	$vbox/current/go.connect("pressed", gotobooru)
+	$vbox/current/go.connect("mouse_entered", entertip)
+	$vbox/current/go.connect("mouse_exited", exittip)
 	$vbox/taginput/bulk.connect("pressed", bulkdl)
 	$vbox/taginput/limit.connect("value_changed", limupd)
 	
@@ -51,6 +54,14 @@ func bgmtog(togbool: bool):
 		$"../aud".stream_paused = true
 		$bgm/off.show()
 
+func entertip():
+	$vbox/current/go/tip/anims.stop()
+	$vbox/current/go/tip/anims.play("inhover")
+
+func exittip():
+	$vbox/current/go/tip/anims.stop()
+	$vbox/current/go/tip/anims.play("outhover")
+
 func updallinfo():
 	BRPC.details = "Viewing " + booru.alias
 	if not tags == []:
@@ -64,6 +75,7 @@ func updallinfo():
 
 func updbooru(sel: int):
 	booru = BRPC.boorus[sel]
+	$vbox/current/go/tip.text = booru.locator
 	if not booru.has("requrl"):
 		$vbox/taginput/bulk.hide()
 		$vbox/taginput/limit.hide()
@@ -101,7 +113,14 @@ func bulkdl():
 		$vbox/taginput/bulk/anims.stop()
 		$vbox/taginput/bulk/anims.play("roll")
 		BRPC.clearcache()
-		BRPC.sendreq(booru, forced + tags)
+		if not forced == []:
+			BRPC.sendreq(booru, forced + tags)
+		else:
+			var cleaned = []
+			for tag in tags:
+				if not tag.to_lower().contains("rating"):
+					cleaned.append(tag)
+			BRPC.sendreq(booru, forced + cleaned)
 		OS.shell_open(OS.get_user_data_dir() + "/loaded/")
 	else:
 		$"../deltagportion".play()

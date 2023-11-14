@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://7qdtnvrkuy0s"]
+[gd_scene load_steps=57 format=3 uid="uid://7qdtnvrkuy0s"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_gs6oj"]
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_shdof"]
@@ -12,11 +12,19 @@
 [ext_resource type="AudioStream" uid="uid://ctk2hwpofbqs0" path="res://assets/audio/updrpc.wav" id="10_htwys"]
 [ext_resource type="AudioStream" uid="uid://cp3qjco7uusjh" path="res://assets/audio/deltagportion.wav" id="11_5gwjj"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66bur"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lk0pg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xm6h4"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
 
 [sub_resource type="Theme" id="Theme_hs3cj"]
 default_font = ExtResource("1_xrg0m")
+ConfirmationDialog/styles/Panel = SubResource("StyleBoxFlat_66bur")
 OptionButton/styles/focus = SubResource("StyleBoxEmpty_lk0pg")
+PopupDialog/styles/panel = SubResource("StyleBoxFlat_xm6h4")
 
 [sub_resource type="Gradient" id="Gradient_0fs2v"]
 interpolation_mode = 1
@@ -136,6 +144,93 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tb6sy"]
 _data = {
 "roll": SubResource("Animation_shwty")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_7dltk"]
+font_color = Color(1, 0.984314, 0.764706, 1)
+
+[sub_resource type="Animation" id="Animation_ry00v"]
+resource_name = "inhover"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [Vector2(0, 4.5), Vector2(42, 4.5)]
+}
+
+[sub_resource type="Animation" id="Animation_uulwr"]
+resource_name = "outhover"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.1, 0.1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.1, 0.1),
+"update": 0,
+"values": [Vector2(42, 4.5), Vector2(0, 4.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d5fcy"]
+_data = {
+"inhover": SubResource("Animation_ry00v"),
+"outhover": SubResource("Animation_uulwr")
 }
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vf626"]
@@ -272,6 +367,9 @@ tracks/4/keys = {
 _data = {
 "intro": SubResource("Animation_hylf0")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrrid"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
 
 [node name="root" type="Control"]
 clip_contents = true
@@ -452,7 +550,6 @@ layout_mode = 0
 offset_left = 200.0
 offset_right = 232.0
 offset_bottom = 32.0
-rotation = 6.28319
 pivot_offset = Vector2(16, 16)
 theme_override_fonts/font = ExtResource("2_weqi6")
 theme_override_font_sizes/font_size = 32
@@ -469,6 +566,28 @@ icon_size = 32
 [node name="anims" type="AnimationPlayer" parent="main/vbox/current/go"]
 libraries = {
 "": SubResource("AnimationLibrary_tb6sy")
+}
+
+[node name="tip" type="Label" parent="main/vbox/current/go"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 164.0
+offset_bottom = 11.5002
+grow_vertical = 2
+text = "https://link.to.booru/"
+label_settings = SubResource("LabelSettings_7dltk")
+vertical_alignment = 1
+
+[node name="anims" type="AnimationPlayer" parent="main/vbox/current/go/tip"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_d5fcy")
 }
 
 [node name="sep" type="HSeparator" parent="main/vbox"]
@@ -550,12 +669,13 @@ libraries = {
 }
 
 [node name="limit" type="SpinBox" parent="main/vbox/taginput"]
-custom_minimum_size = Vector2(272, 32)
+custom_minimum_size = Vector2(288, 32)
 layout_mode = 0
 offset_left = 376.0
 offset_right = 648.0
 offset_bottom = 32.0
 min_value = 1.0
+max_value = 1000.0
 value = 10.0
 update_on_text_changed = true
 prefix = "Bulk-cache the first"
@@ -638,18 +758,35 @@ bus = &"Sounds"
 title = "Age confirmation"
 initial_position = 2
 size = Vector2i(382, 100)
-ok_button_text = "Yes"
+ok_button_text = "Yep"
 dialog_text = "Are you eighteen years of age or older?"
-cancel_button_text = "No"
+cancel_button_text = "Nope"
 
 [node name="warning" type="AcceptDialog" parent="."]
 title = "Age Notice"
 initial_position = 2
 size = Vector2i(325, 192)
-ok_button_text = "Understood"
+theme_override_styles/panel = SubResource("StyleBoxFlat_vrrid")
+ok_button_text = "Alrighty"
 dialog_text = "To unlock all Boorupresence content,
 you must first verify that you are aged
 eighteen or above.
 
 If you want to change your response,
 restart Boorupresence."
+
+[node name="caution" type="AcceptDialog" parent="."]
+title = "Content Notice"
+initial_position = 2
+size = Vector2i(302, 245)
+theme_override_styles/panel = SubResource("StyleBoxFlat_vrrid")
+ok_button_text = "Kapeesh"
+dialog_text = "It is worth noting that I do not have any
+control over what content is displayed
+and/or downloaded from any of these
+Boorus.
+
+They are external sources, and should
+therefore be treated as such.
+
+Kapeesh?"
