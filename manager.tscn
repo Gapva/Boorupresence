@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://7qdtnvrkuy0s"]
+[gd_scene load_steps=56 format=3 uid="uid://7qdtnvrkuy0s"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_gs6oj"]
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_shdof"]
@@ -367,9 +367,6 @@ tracks/4/keys = {
 _data = {
 "intro": SubResource("Animation_hylf0")
 }
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrrid"]
-bg_color = Color(0.25, 0.25, 0.25, 1)
 
 [node name="root" type="Control"]
 clip_contents = true
@@ -758,15 +755,17 @@ bus = &"Sounds"
 title = "Age confirmation"
 initial_position = 2
 size = Vector2i(382, 100)
+borderless = true
 ok_button_text = "Yep"
 dialog_text = "Are you eighteen years of age or older?"
+dialog_close_on_escape = false
 cancel_button_text = "Nope"
 
 [node name="warning" type="AcceptDialog" parent="."]
 title = "Age Notice"
 initial_position = 2
 size = Vector2i(325, 192)
-theme_override_styles/panel = SubResource("StyleBoxFlat_vrrid")
+borderless = true
 ok_button_text = "Alrighty"
 dialog_text = "To unlock all Boorupresence content,
 you must first verify that you are aged
@@ -779,7 +778,7 @@ restart Boorupresence."
 title = "Content Notice"
 initial_position = 2
 size = Vector2i(302, 245)
-theme_override_styles/panel = SubResource("StyleBoxFlat_vrrid")
+borderless = true
 ok_button_text = "Kapeesh"
 dialog_text = "It is worth noting that I do not have any
 control over what content is displayed

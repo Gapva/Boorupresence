@@ -32,19 +32,22 @@ func _ready():
 	await get_tree().create_timer(2).timeout
 	$"../fade".hide()
 	
-#	$"../age".connect("confirmed", ageconf)
+	$"../age".connect("confirmed", ageconf)
 	$"../age".connect("canceled", agenotice)
-	$"../age".popup()
 	$"../age".popup_centered()
 	
 
-#func ageconf():
+func ageconf():
+	expresscaution()
 #	$vbox/current.clear()
 
 func agenotice():
 	forced.append("rating:s")
-	$"../warning".popup()
+	$"../warning".connect("confirmed", expresscaution)
 	$"../warning".popup_centered()
+
+func expresscaution():
+	$"../caution".popup_centered()
 
 func bgmtog(togbool: bool):
 	if togbool:
