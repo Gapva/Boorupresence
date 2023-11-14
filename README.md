@@ -3,7 +3,7 @@
 # Boorupresence
 A quick and convenient way to browse "boorus" (image boards) and display your activity to others via rich-presence.
 
-Currently, only Windows is supported, but that will probably change over time.
+Currently, only Windows and Linux are supported. There may come a day where I implement limited Android support, but there will never, ever be Mac or iOS releases.
 
 # Installation
 Download Boorupresence by clicking [here](https://github.com/Gapva/Boorupresence/releases/latest).
