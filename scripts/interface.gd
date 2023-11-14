@@ -71,8 +71,12 @@ func updallinfo():
 		BRPC.state = "Tags: " + ", ".join(ptags)
 	else:
 		BRPC.state = "Homepage"
-	BRPC.simg = BRPC.safetylisting[int(bool(booru.safe))]
-	BRPC.stxt = BRPC.safetyaliases[int(bool(booru.safe))]
+	if not forced == []:
+		BRPC.simg = BRPC.safetylisting[int(bool(true))]
+		BRPC.stxt = BRPC.safetyaliases[int(bool(true))]
+	else:
+		BRPC.simg = BRPC.safetylisting[int(bool(booru.safe))]
+		BRPC.stxt = BRPC.safetyaliases[int(bool(booru.safe))]
 	$vbox/taglist.text = "\n".join(ptags)
 	print("Tags list updated to " + str(forced + tags))
 
