@@ -6,8 +6,8 @@
 [ext_resource type="FontFile" uid="uid://vyicmg0a1e7q" path="res://addons/material-design-icons/fonts/material_design_icons.ttf" id="2_weqi6"]
 [ext_resource type="Script" path="res://addons/material-design-icons/nodes/MaterialButton.gd" id="3_1b01e"]
 [ext_resource type="Script" path="res://addons/material-design-icons/nodes/MaterialIcon.gd" id="3_2c6qr"]
-[ext_resource type="AudioStream" uid="uid://2x4wmgq1lx6m" path="res://assets/audio/bgm.mp3" id="4_y2mi4"]
 [ext_resource type="Texture2D" uid="uid://dhfji3t1h8nu7" path="res://assets/img/boorupresence.png" id="6_rkd2p"]
+[ext_resource type="AudioStream" uid="uid://bet6y0jt5tkwb" path="res://assets/audio/bgmB.mp3" id="8_wtykx"]
 [ext_resource type="AudioStream" uid="uid://dajwub35hreko" path="res://assets/audio/newtag.wav" id="9_ujlo4"]
 [ext_resource type="AudioStream" uid="uid://ctk2hwpofbqs0" path="res://assets/audio/updrpc.wav" id="10_htwys"]
 [ext_resource type="AudioStream" uid="uid://cp3qjco7uusjh" path="res://assets/audio/deltagportion.wav" id="11_5gwjj"]
@@ -539,7 +539,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_oa1cc")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_oa1cc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wdm5o")
 text = "󰇚"
-clip_text = true
 icon_alignment = 1
 script = ExtResource("3_1b01e")
 icon_name = "download"
@@ -597,9 +596,9 @@ text = "mon00-year"
 label_settings = SubResource("LabelSettings_y1nuq")
 
 [node name="aud" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_y2mi4")
-volume_db = 2.0
-pitch_scale = 0.87
+stream = ExtResource("8_wtykx")
+volume_db = -2.0
+pitch_scale = 1.02
 autoplay = true
 bus = &"Music"
 
@@ -640,7 +639,7 @@ title = "Age confirmation"
 initial_position = 2
 size = Vector2i(382, 100)
 ok_button_text = "Yes"
-dialog_text = "Are you above (or exactly) the age of eighteen?"
+dialog_text = "Are you eighteen years of age or older?"
 cancel_button_text = "No"
 
 [node name="warning" type="AcceptDialog" parent="."]
@@ -648,9 +647,9 @@ title = "Age Notice"
 initial_position = 2
 size = Vector2i(325, 192)
 ok_button_text = "Understood"
-dialog_text = "To unlock all features of Boorupresence,
-you must first verify that you are above
-the age of eighteen.
+dialog_text = "To unlock all Boorupresence content,
+you must first verify that you are aged
+eighteen or above.
 
 If you want to change your response,
 restart Boorupresence."

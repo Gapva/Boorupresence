@@ -3,6 +3,7 @@ extends Panel
 var booru = BRPC.boorus[0]
 var tags = []
 var ptags = []
+var forced = []
 
 func _ready():
 	
@@ -21,35 +22,33 @@ func _ready():
 	$vbox/taginput/limit.connect("value_changed", limupd)
 	
 	for iterbooru in BRPC.boorus:
-		if iterbooru.safe:
-			$vbox/current.add_item(iterbooru.alias, iterbooru.id)
+		$vbox/current.add_item(iterbooru.alias, iterbooru.id)
 	
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(0.75).timeout
 	$"../anims".play("intro")
 	await get_tree().create_timer(2).timeout
 	$"../fade".hide()
 	
-	$"../age".connect("confirmed", ageconf)
+#	$"../age".connect("confirmed", ageconf)
 	$"../age".connect("canceled", agenotice)
 	$"../age".popup()
 	$"../age".popup_centered()
 	
 
-func ageconf():
-	$vbox/current.clear()
-	for iterbooru in BRPC.boorus:
-		$vbox/current.add_item(iterbooru.alias, iterbooru.id)
+#func ageconf():
+#	$vbox/current.clear()
 
 func agenotice():
+	forced.append("rating:s")
 	$"../warning".popup()
 	$"../warning".popup_centered()
 
 func bgmtog(togbool: bool):
 	if togbool:
-		AudioServer.set_bus_mute(1, false)
+		$"../aud".stream_paused = false
 		$bgm/off.hide()
 	else:
-		AudioServer.set_bus_mute(1, true)
+		$"../aud".stream_paused = true
 		$bgm/off.show()
 
 func updallinfo():
@@ -61,7 +60,7 @@ func updallinfo():
 	BRPC.simg = BRPC.safetylisting[int(bool(booru.safe))]
 	BRPC.stxt = BRPC.safetyaliases[int(bool(booru.safe))]
 	$vbox/taglist.text = "\n".join(ptags)
-	print("Tags list updated to " + str(tags))
+	print("Tags list updated to " + str(forced + tags))
 
 func updbooru(sel: int):
 	booru = BRPC.boorus[sel]
@@ -102,7 +101,7 @@ func bulkdl():
 		$vbox/taginput/bulk/anims.stop()
 		$vbox/taginput/bulk/anims.play("roll")
 		BRPC.clearcache()
-		BRPC.sendreq(booru, tags)
+		BRPC.sendreq(booru, forced + tags)
 		OS.shell_open(OS.get_user_data_dir() + "/loaded/")
 	else:
 		$"../deltagportion".play()
