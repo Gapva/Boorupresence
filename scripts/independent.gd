@@ -20,35 +20,35 @@ const boorus = [
 	{
 		"alias": "Safebooru",
 		"locator": "https://safebooru.org/",
-		"requrl": "https://safebooru.org/index.php?page=dapi&s=post&q=index&tags={TAGS}",
+		"requrl": "https://safebooru.org/index.php?page=dapi&s=post&q=index&pid={PAGE}&tags={TAGS}",
 		"safe": true,
 		"id": 0
 	},
 	{
 		"alias": "Gelbooru",
 		"locator": "https://gelbooru.com/",
-		"requrl": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=0&tags={TAGS}",
+		"requrl": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=0&pid={PAGE}&tags={TAGS}",
 		"safe": false,
 		"id": 1
 	},
 	{
 		"alias": "Konachan (NET)",
 		"locator": "https://konachan.net/",
-		"requrl": "https://konachan.net/post.xml?&tags={TAGS}",
+		"requrl": "https://konachan.net/post.xml?&pid={PAGE}&tags={TAGS}",
 		"safe": true,
 		"id": 2
 	},
 	{
 		"alias": "Konachan (COM)",
 		"locator": "https://konachan.com/",
-		"requrl": "https://konachan.com/post.xml?&tags={TAGS}",
+		"requrl": "https://konachan.com/post.xml?&pid={PAGE}&tags={TAGS}",
 		"safe": false,
 		"id": 3
 	},
 	{
 		"alias": "Yandere",
 		"locator": "https://yande.re/",
-		"requrl": "https://yande.re/post.xml?&tags={TAGS}",
+		"requrl": "https://yande.re/post.xml?&pid={PAGE}&tags={TAGS}",
 		"safe": false,
 		"id": 4
 	},
@@ -61,7 +61,8 @@ const boorus = [
 ]
 
 var http: HTTPRequest
-var results: int = 10
+var results: int = 100
+var pid: int = 0
 var queue: Array = []
 var current: String
 var ext: String
@@ -75,6 +76,7 @@ func _ready():
 
 func sendreq(server, tags):
 	var url = server.requrl.format({
+		"PAGE": str(pid - 1),
 		"TAGS": "+".join(tags)
 	})
 	print("Requesting images from " + url)

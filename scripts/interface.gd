@@ -133,8 +133,8 @@ func bulkdl():
 		$"../deltagportion".play()
 
 func limupd(new: int):
-	BRPC.results = new
-	print("Changed bulk-cache limit to " + str(new))
+	BRPC.pid = new
+	print("Changed bulk-cache page to " + str(new))
 
 func updrpc():
 	$"../updrpc".play()

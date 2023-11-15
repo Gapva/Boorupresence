@@ -666,17 +666,16 @@ libraries = {
 }
 
 [node name="limit" type="SpinBox" parent="main/vbox/taginput"]
-custom_minimum_size = Vector2(288, 32)
+custom_minimum_size = Vector2(304, 32)
 layout_mode = 0
 offset_left = 376.0
-offset_right = 648.0
+offset_right = 568.0
 offset_bottom = 32.0
 min_value = 1.0
-max_value = 1000.0
-value = 10.0
+max_value = 9999.0
+value = 1.0
 update_on_text_changed = true
-prefix = "Bulk-cache the first"
-suffix = "result(s)"
+prefix = "Bulk-cache starting from page"
 select_all_on_focus = true
 
 [node name="taglist" type="Label" parent="main/vbox"]
