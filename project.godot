@@ -22,7 +22,7 @@ boot_splash/use_filter=false
 config/icon="res://assets/img/full.png"
 config/windows_native_icon="res://assets/img/favi.ico"
 boot_splash/minimum_display_time=2000
-config/version_name="nov13-rabbit"
+config/version_name="nov14-rabbit"
 
 [autoload]
 
