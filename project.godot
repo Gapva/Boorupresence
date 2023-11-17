@@ -43,7 +43,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/gdshell/plugin.cfg", "res://addons/material-design-icons/plugin.cfg")
+enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg", "res://addons/gdshell/plugin.cfg", "res://addons/material-design-icons/plugin.cfg")
 
 [input]
 
