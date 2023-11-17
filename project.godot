@@ -29,6 +29,7 @@ config/version_name="nov14-rabbit"
 DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
 MaterialIconsDB="*res://addons/material-design-icons/icons/icons.gd"
 BRPC="*res://scripts/independent.gd"
+GDShell="*res://addons/gdshell/scripts/gdshell_main.gd"
 
 [debug]
 
@@ -42,7 +43,15 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg", "res://addons/material-design-icons/plugin.cfg")
+enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/gdshell/plugin.cfg", "res://addons/material-design-icons/plugin.cfg")
+
+[input]
+
+gdshell_toggle_ui={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":96,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
 
 [rendering]
 

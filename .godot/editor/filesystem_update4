@@ -1,4 +1,3 @@
 res://default_bus_layout.tres
 res://manager.tscn
-res://scripts/independent.gd
 res://scripts/interface.gd
