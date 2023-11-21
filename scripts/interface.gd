@@ -23,6 +23,7 @@ func _ready():
 	$vbox/current/go.connect("mouse_exited", exittip)
 	$vbox/taginput/bulk.connect("pressed", bulkdl)
 	$vbox/taginput/limit.connect("value_changed", limupd)
+	get_viewport().connect("files_dropped", viewtags)
 	
 	for iterbooru in BRPC.boorus:
 		$vbox/current.add_item(iterbooru.alias, iterbooru.id)
@@ -42,7 +43,7 @@ func ageconf():
 #	$vbox/current.clear()
 
 func agenotice():
-	forced.append("rating:s")
+	forced.append("rating:g")
 	$"../warning".connect("confirmed", expresscaution)
 	$"../warning".popup_centered()
 
@@ -135,6 +136,9 @@ func bulkdl():
 func limupd(new: int):
 	BRPC.pid = new
 	print("Changed bulk-cache page to " + str(new))
+
+func viewtags(file):
+	print(file)
 
 func updrpc():
 	$"../updrpc".play()

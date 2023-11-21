@@ -108,7 +108,7 @@ func on_image_download_completed(result, response_code, headers, body):
 	else:
 		print("Failed to download image from result " + current)
 
-# "i am a never nester!" my ass
+# "i am a never-nester!" my ass
 func parseresp(body) -> Array:
 	var images: Array = []
 	var xml = XMLParser.new()
