@@ -3,5 +3,6 @@ res://addons/discord-sdk-gd/restart_window.tscn::0d8ccb7a091bc59c1a006a542312ea6
 res://addons/material-design-icons/examples/Test.tscn::3c0cddc5a3adcea2ecaf769526b77606::1699637390::res://.godot/exported/133200997/export-d95a493d8fe1730e06080323a475fcd5-Test.scn
 res://addons/material-design-icons/icon_finder/IconFinder.tscn::167b9fb700b7e30efb048cce42c61ddd::1699637390::res://.godot/exported/133200997/export-349a88e53886624a5a22285b30a7fe07-IconFinder.scn
 res://default_env.tres::756de160834ef7cc033c2a79cd80f338::1699637392::res://.godot/exported/133200997/export-7cf3fd67ad9f55210191d77b582b8209-default_env.res
-res://manager.tscn::09dbdce9c32b769b3b287734923c575e::1700021798::res://.godot/exported/133200997/export-3f10484a9996e984e8f3f8dbce869258-manager.scn
-res://default_bus_layout.tres::1f063ebe6fb16ad28fae3df75bd57e01::1700017358::res://.godot/exported/133200997/export-19246414aa9fb561ced4b8dce477acec-default_bus_layout.res
+res://manager.tscn::09dbdce9c32b769b3b287734923c575e::1700618092::res://.godot/exported/133200997/export-3f10484a9996e984e8f3f8dbce869258-manager.scn
+res://default_bus_layout.tres::1f063ebe6fb16ad28fae3df75bd57e01::1700595918::res://.godot/exported/133200997/export-19246414aa9fb561ced4b8dce477acec-default_bus_layout.res
+res://addons/gdshell/ui/default_ui/default_ui.tscn::e31929f6dbce311e217f2bb1bb475319::1700178566::res://.godot/exported/133200997/export-1914ac6c5a2a6868e8e8fa45659eabf3-default_ui.scn
