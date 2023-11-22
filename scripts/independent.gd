@@ -21,6 +21,7 @@ const boorus = [
 		"alias": "Safebooru",
 		"locator": "https://safebooru.org/",
 		"requrl": "https://safebooru.org/index.php?page=dapi&s=post&q=index&pid={PAGE}&tags={TAGS}",
+		"viewurl": "https://safebooru.org/index.php?page=post&s=view&id={ID}",
 		"safe": true,
 		"id": 0
 	},
@@ -28,6 +29,7 @@ const boorus = [
 		"alias": "Gelbooru",
 		"locator": "https://gelbooru.com/",
 		"requrl": "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=0&pid={PAGE}&tags={TAGS}",
+		"viewurl": "https://gelbooru.com/index.php?page=post&s=view&id={ID}",
 		"safe": false,
 		"id": 1
 	},
@@ -35,6 +37,7 @@ const boorus = [
 		"alias": "Konachan (NET)",
 		"locator": "https://konachan.net/",
 		"requrl": "https://konachan.net/post.xml?&pid={PAGE}&tags={TAGS}",
+		"viewurl": "https://konachan.net/post/show/{ID}/",
 		"safe": true,
 		"id": 2
 	},
@@ -42,6 +45,7 @@ const boorus = [
 		"alias": "Konachan (COM)",
 		"locator": "https://konachan.com/",
 		"requrl": "https://konachan.com/post.xml?&pid={PAGE}&tags={TAGS}",
+		"viewurl": "https://konachan.com/post/show/{ID}/",
 		"safe": false,
 		"id": 3
 	},
@@ -49,12 +53,14 @@ const boorus = [
 		"alias": "Yandere",
 		"locator": "https://yande.re/",
 		"requrl": "https://yande.re/post.xml?&pid={PAGE}&tags={TAGS}",
+		"viewurl": "https://yande.re/post/show/{ID}/",
 		"safe": false,
 		"id": 4
 	},
 	{
 		"alias": "Danbooru",
 		"locator": "https://danbooru.donmai.us/",
+		"viewurl": "https://danbooru.donmai.us/posts/{ID}/",
 		"safe": false,
 		"id": 5
 	},
@@ -62,7 +68,7 @@ const boorus = [
 
 var http: HTTPRequest
 var results: int = 100
-var pid: int = 0
+var pid: int = 1
 var queue: Array = []
 var current: String
 var ext: String
@@ -75,6 +81,8 @@ func _ready():
 	http.connect("request_completed", _on_request_completed)
 
 func sendreq(server, tags):
+	if pid < 1:
+		pid = 1
 	var url = server.requrl.format({
 		"PAGE": str(pid - 1),
 		"TAGS": "+".join(tags)
@@ -83,12 +91,17 @@ func sendreq(server, tags):
 	http.request(url)
 
 func _on_request_completed(result, response_code, headers, body):
-	var images = parseresp(body)
+	var resp = parseresp(body)
+	var images = resp.images
+	var ids = resp.ids
 	queue = images.slice(0, results - 1)
 	for i in range(min(images.size(), results)):
-		current = str(i + 1)
-		ext = "." + images[i].split(".")[-1]
 		print("Attempting to cache image from " + images[i])
+		current = "{ITERATION}-{ID}".format({
+			"ITERATION": i + 1,
+			"ID": ids[i]
+		})
+		ext = "." + images[i].split(".")[-1]
 		downloadimg(images[i])
 		await http.request_completed
 #		if queue.size() > 0:
@@ -109,31 +122,40 @@ func on_image_download_completed(result, response_code, headers, body):
 		print("Failed to download image from result " + current)
 
 # "i am a never-nester!" my ass
-func parseresp(body) -> Array:
-	var images: Array = []
+func parseresp(body) -> Dictionary:
+	var results = {
+		"images": [],
+		"ids": []
+	}
 	var xml = XMLParser.new()
 	if xml.open_buffer(body) == OK:
 		while xml.read() == OK:
-			if xml.get_node_type() == XMLParser.NODE_ELEMENT:
-				if xml.get_node_name() == "post":
-					var file_url: String = xml.get_named_attribute_value_safe("file_url")
-					if file_url.is_empty():
-						var inside_post = true
-						while inside_post and xml.read() == OK:
-							if xml.get_node_type() == XMLParser.NODE_ELEMENT:
-								if xml.get_node_name() == "file_url":
-									xml.read()
-									if xml.get_node_type() == XMLParser.NODE_TEXT:
-										file_url = xml.get_node_data().strip_edges()
-										images.append(file_url)
-										break
-							elif xml.get_node_type() == XMLParser.NODE_ELEMENT_END and xml.get_node_name() == "post":
-								inside_post = false
-					else:
-						images.append(file_url)
-					if images.size() >= results:
-						break
-	return images
+			if xml.get_node_type() == XMLParser.NODE_ELEMENT and xml.get_node_name() == "post":
+				var file_url: String = xml.get_named_attribute_value_safe("file_url")
+				var post_id: String = xml.get_named_attribute_value_safe("id")
+				if file_url.is_empty() or post_id.is_empty():
+					var inside_post = true
+					while inside_post and xml.read() == OK:
+						if xml.get_node_type() == XMLParser.NODE_ELEMENT:
+							if xml.get_node_name() == "file_url" and file_url.is_empty():
+								xml.read()
+								if xml.get_node_type() == XMLParser.NODE_TEXT:
+									file_url = xml.get_node_data().strip_edges()
+							elif xml.get_node_name() == "id" and post_id.is_empty():
+								xml.read()
+								if xml.get_node_type() == XMLParser.NODE_TEXT:
+									post_id = xml.get_node_data().strip_edges()
+						elif xml.get_node_type() == XMLParser.NODE_ELEMENT_END and xml.get_node_name() == "post":
+							inside_post = false
+						elif xml.is_empty_element() and xml.get_node_name() == "post":
+							inside_post = false
+							break
+				if not file_url.is_empty():
+					results["images"].append(file_url)
+				if not post_id.is_empty():
+					results["ids"].append(post_id)
+	return results
+
 
 func updrpc():
 	print("Attempt to refresh presence at " + str(int(Time.get_unix_time_from_system())))

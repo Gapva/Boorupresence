@@ -90,6 +90,7 @@ func updbooru(sel: int):
 	else:
 		$vbox/taginput/bulk.show()
 		$vbox/taginput/limit.show()
+	BRPC.clearcache()
 	updallinfo()
 
 func updtags(new: String):
@@ -121,14 +122,17 @@ func bulkdl():
 		$vbox/taginput/bulk/anims.stop()
 		$vbox/taginput/bulk/anims.play("roll")
 		BRPC.clearcache()
-		if not forced == []:
-			BRPC.sendreq(booru, forced + tags)
+		if not booru.safe:
+			if not forced == [] and not booru.safe:
+				BRPC.sendreq(booru, forced + tags)
+			else:
+				var cleaned = []
+				for tag in tags:
+					if not tag.to_lower().contains("rating"):
+						cleaned.append(tag)
+				BRPC.sendreq(booru, forced + cleaned)
 		else:
-			var cleaned = []
-			for tag in tags:
-				if not tag.to_lower().contains("rating"):
-					cleaned.append(tag)
-			BRPC.sendreq(booru, forced + cleaned)
+			BRPC.sendreq(booru, tags)
 		OS.shell_open(OS.get_user_data_dir() + "/loaded/")
 	else:
 		$"../deltagportion".play()
@@ -138,7 +142,11 @@ func limupd(new: int):
 	print("Changed bulk-cache page to " + str(new))
 
 func viewtags(file):
-	print(file)
+	var id = file[0].get_file().split(".")[0].split("-")[1]
+	print("Redirecting to post " + id + " on " + booru.alias)
+	OS.shell_open(booru.viewurl.format({
+		"ID": id
+	}))
 
 func updrpc():
 	$"../updrpc".play()
